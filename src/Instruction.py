@@ -5,41 +5,45 @@ from typing import List
 from src.BinaryNumber import BinaryNumber
 
 
-class Arithmetic(ABC):
+class Instruction(ABC):
 
-    def __init__(self, input_numbers: List[BinaryNumber], output_numbers: List[BinaryNumber], wire_numbers: List[BinaryNumber] = None):
-        self.input_numbers = input_numbers
-        self.output_numbers = output_numbers
-        self.wire_numbers = wire_numbers
+    def __init__(self, inputs: List[BinaryNumber], outputs: List[BinaryNumber], wires: List[BinaryNumber] = None):
+        self.inputs = inputs
+        self.outputs = outputs
+        if wires is None:
+            self.wires = []
+        else:
+            self.wires = wires
         self.body = ""
-        self._generate()
 
     def get_input_variables(self) -> List[str]:
-        return list(itertools.chain(*[number.get_variables() for number in self.input_numbers]))
+        return list(itertools.chain(*[number.get_variables() for number in self.inputs]))
 
     def get_output_variables(self) -> List[str]:
-        return list(itertools.chain(*[number.get_variables() for number in self.output_numbers]))
+        return list(itertools.chain(*[number.get_variables() for number in self.outputs]))
 
     def get_wire_variables(self) -> List[str]:
-        return list(itertools.chain(*[number.get_variables() for number in self.wire_numbers]))
+        return list(itertools.chain(*[number.get_variables() for number in self.wires]))
 
     def get_header(self) -> str:
-        content = "module adder ("
-        content += "\n "
-        content += ", ".join(self.get_input_variables())
-        content += ", "
+        content = "module kernel ("
+        if len(self.inputs) != 0:
+            content += "\n "
+            content += ", ".join(self.get_input_variables())
+            content += ", "
         content += "\n "
         content += ", ".join(self.get_output_variables())
         content += " );\n"
         content += "\n "
-        content += "input "
-        content += ", ".join(self.get_input_variables())
-        content += ";\n "
+        if len(self.inputs) != 0:
+            content += "input "
+            content += ", ".join(self.get_input_variables())
+            content += ";\n "
         content += "output "
         content += ", ".join(self.get_output_variables())
         content += ";\n "
 
-        if self.wire_numbers is not None:
+        if len(self.wires) != 0:
             content += "wire "
             content += ", ".join(self.get_wire_variables())
             content += ";\n "
@@ -56,14 +60,10 @@ class Arithmetic(ABC):
     def get_content(self) -> str:
         return self.get_header() + self.get_body() + self.get_footer()
 
-    def write_verilog(self, file_name: str):
+    def write_instruction(self, file_name: str):
         with open(file_name, 'w') as f:
             f.write(self.get_content())
 
     @abstractmethod
-    def _generate(self) -> str:
-        pass
-
-    @abstractmethod
-    def get_output_numbers(self) -> List[BinaryNumber]:
+    def execute(self):
         pass

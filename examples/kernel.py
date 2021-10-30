@@ -1,49 +1,73 @@
 from src.BinaryNumber import BinaryNumber
-from src.OneComplement import OneComplement
-from src.Shift import Shift
+from src.Constant import Constant
+from src.InstructionSequence import InstructionSequence
+from src.LeftShift import LeftShift
+from src.Sign import Sign
 from src.TwoComplement import TwoComplement
 
 n = 8
 
-one_constant = BinaryNumber("ONE", n + 1)
+one = BinaryNumber("ONE", n + 1)
+one_constant = Constant(['1\'b1', '1\'b0', '1\'b0', '1\'b0', '1\'b0', '1\'b0', '1\'b0', '1\'b0', '1\'b0'], one)
 
 x1_unsigned = BinaryNumber("x1", n)
-x1_signed = x1_unsigned.to_signed(n + 1)
+x1_signed = BinaryNumber("x1_signed", n + 1)
 
 x2_unsigned = BinaryNumber("x2", n)
-x2_signed = x2_unsigned.to_signed(n + 1)
-x2_shifted = BinaryNumber("x2_shift", n + 1)
+x2_signed = BinaryNumber("x2_signed", n + 1)
+x2_shifted = BinaryNumber("x2_shifted", n + 1)
 
 x3_unsigned = BinaryNumber("x3", n)
-x3_signed = x3_unsigned.to_signed(n + 1)
+x3_signed = BinaryNumber("x3_signed", n + 1)
 
 x7_unsigned = BinaryNumber("x7", n)
-x7_signed = x7_unsigned.to_signed(n + 1)
-x7_one_complement = BinaryNumber("x7_one_compl", n + 1)
-x7_two_complement = BinaryNumber("x7_two_compl", n + 1)
+x7_signed = BinaryNumber("x7_signed", n + 1)
+x7_one_compl = BinaryNumber("x7_one_compl", n + 1)
 x7_carry = BinaryNumber("x7_carry", n + 1)
+x7_two_compl = BinaryNumber("x7_two_compl", n + 1)
 
 x8_unsigned = BinaryNumber("x8", n)
-x8_signed = x8_unsigned.to_signed(n + 1)
-x8_shifted = BinaryNumber("x8_shift", n + 1)
+x8_signed = BinaryNumber("x8_signed", n + 1)
+x8_shifted = BinaryNumber("x8_shifted", n + 1)
+x8_one_compl = BinaryNumber("x8_one_compl", n + 1)
+x8_carry = BinaryNumber("x8_carry", n + 1)
+x8_two_compl = BinaryNumber("x8_two_compl", n + 1)
 
 x9_unsigned = BinaryNumber("x9", n)
-x9_signed = x9_unsigned.to_signed(n + 1)
+x9_signed = BinaryNumber("x9_signed", n + 1)
+x9_one_compl = BinaryNumber("x9_one_compl", n + 1)
+x9_carry = BinaryNumber("x9_carry", n + 1)
+x9_two_compl = BinaryNumber("x9two_compl", n + 1)
 
-shift = Shift(x2_signed, x2_shifted)
-content = shift.get_content()
-print(content)
+sign_instruction_x1 = Sign(x1_unsigned, x1_signed)
+sign_instruction_x2 = Sign(x2_unsigned, x2_signed)
+sign_instruction_x3 = Sign(x3_unsigned, x3_signed)
+sign_instruction_x7 = Sign(x7_unsigned, x7_signed)
+sign_instruction_x8 = Sign(x8_unsigned, x8_signed)
+sign_instruction_x9 = Sign(x9_unsigned, x9_signed)
 
-shift = Shift(x8_signed, x8_shifted)
-content = shift.get_content()
-print(content)
+shift_instruction_x2 = LeftShift(x2_signed, x2_shifted)
+shift_instruction_x8 = LeftShift(x8_signed, x8_shifted)
 
-one_complement = OneComplement(x7_signed, x7_one_complement)
-content = one_complement.get_content()
-print(content)
+two_complement_x7 = TwoComplement(x7_signed, x7_one_compl, one, x7_carry, x7_two_compl)
+two_complement_x8 = TwoComplement(x8_shifted, x8_one_compl, one, x8_carry, x8_two_compl)
+two_complement_x9 = TwoComplement(x7_signed, x9_one_compl, one, x9_carry, x9_two_compl)
 
-print("---")
+inputs = [x1_unsigned, x2_unsigned, x3_unsigned, x7_unsigned, x8_unsigned, x9_unsigned]
+outputs = [x7_two_compl, x8_two_compl, x9_two_compl]
+wires = [x1_signed, x2_signed, x3_signed, x7_signed, x8_signed, x9_signed,
+         x2_shifted, x8_shifted,
+         x7_one_compl, x7_carry,
+         x8_one_compl, x8_carry,
+         x9_one_compl, x9_carry,
+         one]
+instructions = [one_constant,
+                sign_instruction_x1, sign_instruction_x2, sign_instruction_x3,
+                sign_instruction_x7, sign_instruction_x8, sign_instruction_x9,
+                shift_instruction_x2, shift_instruction_x8,
+                two_complement_x7, two_complement_x8, two_complement_x9]
 
-two_complement = TwoComplement(x7_signed, x7_one_complement, one_constant, x7_carry, x7_two_complement)
-content = two_complement.get_content()
-print(content)
+instruction_sequence = InstructionSequence(inputs, outputs, instructions, wires)
+instruction_sequence.execute()
+code = instruction_sequence.get_content()
+print(code)

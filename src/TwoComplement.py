@@ -1,15 +1,10 @@
-from typing import List
-
 from src.Add import Add
-from src.Arithmetic import Arithmetic
+from src.Instruction import Instruction
 from src.BinaryNumber import BinaryNumber
 from src.OneComplement import OneComplement
 
 
-class TwoComplement(Arithmetic):
-
-    def get_output_numbers(self) -> List[BinaryNumber]:
-        pass
+class TwoComplement(Instruction):
 
     def __init__(self, input_number: BinaryNumber, one_complement_number: BinaryNumber, one_constant: BinaryNumber, carry_number: BinaryNumber, output_number: BinaryNumber):
         if input_number.n != one_complement_number.n:
@@ -23,11 +18,12 @@ class TwoComplement(Arithmetic):
         self.carry_number = carry_number
         super().__init__([input_number], [output_number], [one_complement_number])
 
-    def _generate(self):
-        n = self.input_numbers[0].n
+    def execute(self):
+        n = self.inputs[0].n
 
         # Step 1: One complement
-        one_complement = OneComplement(self.wire_numbers[0], self.input_numbers[0])
+        one_complement = OneComplement(self.wires[0], self.inputs[0])
+        one_complement.execute()
         self.body += one_complement.get_body()
 
         # Step 2: Addition of one complement and one
@@ -39,5 +35,6 @@ class TwoComplement(Arithmetic):
             else:
                 self.body += ' assign {} = 1\'b0;\n'.format(one_constant_variables[i])
 
-        add = Add([self.wire_numbers[0], self.one_constant], self.output_numbers[0], self.carry_number)
+        add = Add([self.wires[0], self.one_constant], self.outputs[0], self.carry_number)
+        add.execute()
         self.body += add.get_body()
