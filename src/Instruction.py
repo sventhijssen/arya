@@ -2,7 +2,7 @@ import itertools
 from abc import ABC, abstractmethod
 from typing import List
 
-from src.BinaryNumber import BinaryNumber
+from BinaryNumber import BinaryNumber
 
 
 class Instruction(ABC):

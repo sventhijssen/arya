@@ -1,10 +1,10 @@
-from src.Add import Add
-from src.BinaryNumber import BinaryNumber
-from src.Constant import Constant
-from src.InstructionSequence import InstructionSequence
-from src.LeftShift import LeftShift
-from src.Sign import Sign
-from src.TwoComplement import TwoComplement
+from Add import Add
+from BinaryNumber import BinaryNumber
+from Constant import Constant
+from InstructionSequence import InstructionSequence
+from LeftShift import LeftShift
+from Sign import Sign
+from TwoComplement import TwoComplement
 
 n = 8
 

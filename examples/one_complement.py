@@ -1,6 +1,6 @@
-from src.BinaryNumber import BinaryNumber
-from src.InstructionSequence import InstructionSequence
-from src.OneComplement import OneComplement
+from BinaryNumber import BinaryNumber
+from InstructionSequence import InstructionSequence
+from OneComplement import OneComplement
 
 n = 8
 

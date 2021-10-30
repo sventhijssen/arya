@@ -1,7 +1,7 @@
-from src.BinaryNumber import BinaryNumber
-from src.Constant import Constant
-from src.InstructionSequence import InstructionSequence
-from src.TwoComplement import TwoComplement
+from BinaryNumber import BinaryNumber
+from Constant import Constant
+from InstructionSequence import InstructionSequence
+from TwoComplement import TwoComplement
 
 n = 8
 

@@ -1,6 +1,6 @@
-from src.BinaryNumber import BinaryNumber
-from src.InstructionSequence import InstructionSequence
-from src.Sign import Sign
+from BinaryNumber import BinaryNumber
+from InstructionSequence import InstructionSequence
+from Sign import Sign
 
 n = 8
 

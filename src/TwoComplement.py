@@ -1,7 +1,7 @@
-from src.Add import Add
-from src.Instruction import Instruction
-from src.BinaryNumber import BinaryNumber
-from src.OneComplement import OneComplement
+from Add import Add
+from Instruction import Instruction
+from BinaryNumber import BinaryNumber
+from OneComplement import OneComplement
 
 
 class TwoComplement(Instruction):

@@ -1,16 +1,17 @@
-from src.Add import Add
-from src.BinaryNumber import BinaryNumber
-from src.InstructionSequence import InstructionSequence
+from Add import Add
+from BinaryNumber import BinaryNumber
+from InstructionSequence import InstructionSequence
 
-n = 8
+n = 4
 
-left = BinaryNumber("x1", n + 1)
-right = BinaryNumber("x2", n + 1)
-sum = BinaryNumber("sum", n + 1)
-carry = BinaryNumber("carry", n + 1)
-add_instruction = Add([left, right], sum, carry)
+x1 = BinaryNumber("x1", n)
+x2 = BinaryNumber("x2", n)
+x3 = BinaryNumber("x3", n)
+sum = BinaryNumber("sum", n)
+carry = BinaryNumber("carry", n)
+add_instruction = Add([x1, x2, x3], sum, carry)
 
-inputs = [left, right]
+inputs = [x1, x2, x3]
 outputs = [sum, carry]
 instructions = [add_instruction]
 

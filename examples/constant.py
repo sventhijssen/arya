@@ -1,6 +1,6 @@
-from src.BinaryNumber import BinaryNumber
-from src.Constant import Constant
-from src.InstructionSequence import InstructionSequence
+from BinaryNumber import BinaryNumber
+from Constant import Constant
+from InstructionSequence import InstructionSequence
 
 n = 8
 

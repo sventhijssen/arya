@@ -1,5 +1,5 @@
-from src.BinaryNumber import BinaryNumber
-from src.Instruction import Instruction
+from BinaryNumber import BinaryNumber
+from Instruction import Instruction
 
 
 class Sign(Instruction):
