@@ -27,14 +27,6 @@ class TwoComplement(Instruction):
         self.body += one_complement.get_body()
 
         # Step 2: Addition of one complement and one
-        # Write constant one as a variable
-        for i in range(n):
-            one_constant_variables = self.one_constant.get_variables()
-            if i == 0:
-                self.body += ' assign {} = 1\'b1;\n'.format(one_constant_variables[i])
-            else:
-                self.body += ' assign {} = 1\'b0;\n'.format(one_constant_variables[i])
-
         add = Add([self.wires[0], self.one_constant], self.outputs[0], self.carry_number)
         add.execute()
         self.body += add.get_body()
