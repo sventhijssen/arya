@@ -55,7 +55,7 @@ shift_instruction_x8 = LeftShift(x8_signed, x8_shifted)
 
 two_complement_x7 = TwoComplement(x7_signed, x7_one_compl, one, x7_carry, x7_two_compl)
 two_complement_x8 = TwoComplement(x8_shifted, x8_one_compl, one, x8_carry, x8_two_compl)
-two_complement_x9 = TwoComplement(x7_signed, x9_one_compl, one, x9_carry, x9_two_compl)
+two_complement_x9 = TwoComplement(x9_signed, x9_one_compl, one, x9_carry, x9_two_compl)
 
 add_instruction = Add([x1_signed, x2_shifted, x3_signed, x7_two_compl, x8_two_compl, x9_two_compl], s, c)
 
