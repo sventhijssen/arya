@@ -22,7 +22,7 @@ class TwoComplement(Instruction):
         n = self.inputs[0].n
 
         # Step 1: One complement
-        one_complement = OneComplement(self.wires[0], self.inputs[0])
+        one_complement = OneComplement(self.inputs[0], self.wires[0])
         one_complement.execute()
         self.body += one_complement.get_body()
 
