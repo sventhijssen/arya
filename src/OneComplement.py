@@ -15,4 +15,4 @@ class OneComplement(Instruction):
         input_variables = self.get_input_variables()
         output_variables = self.get_output_variables()
         for i in range(n):
-            self.body += ' assign {} = ~{};\n'.format(input_variables[i], output_variables[i])
+            self.body += ' assign {} = ~{};\n'.format(output_variables[i], input_variables[i])
